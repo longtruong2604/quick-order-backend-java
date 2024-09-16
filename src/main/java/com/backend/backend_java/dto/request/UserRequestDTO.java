@@ -6,8 +6,9 @@ import java.util.Set;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.backend.backend_java.util.CustomDateDeserializer;
 import com.backend.backend_java.util.PhoneNumber;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -19,7 +20,7 @@ public class UserRequestDTO implements Serializable {
     @NotBlank(message = "firstName must be not blank") // Khong cho phep gia tri blank
     private String firstName;
 
-    @NotNull(message = "lastName must be not null") // Khong cho phep gia tri null
+    @NotBlank(message = "lastName must be not null") // Khong cho phep gia tri null
     private String lastName;
 
     @Email(message = "email invalid format") // Chi chap nhan nhung gia tri dung dinh dang email
@@ -31,13 +32,13 @@ public class UserRequestDTO implements Serializable {
 
     @NotNull(message = "dateOfBirth must be not null")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    @JsonFormat(pattern = "MM/dd/yyyy")
+    @JsonDeserialize(using = CustomDateDeserializer.class)
     private Date dateOfBirth;
 
-    @NotNull(message = "username must be not null")
+    @NotBlank(message = "username must be not null")
     private String username;
 
-    @NotNull(message = "password must be not null")
+    @NotBlank(message = "password must be not null")
     private String password;
 
     @NotEmpty(message = "addresses can not empty")
@@ -52,6 +53,18 @@ public class UserRequestDTO implements Serializable {
         private String city;
         private String country;
         private Integer addressType;
+
+        public Address(String apartmentNumber, String floor, String building, String streetNumber, String street,
+                String city, String country, Integer addressType) {
+            this.apartmentNumber = apartmentNumber;
+            this.floor = floor;
+            this.building = building;
+            this.streetNumber = streetNumber;
+            this.street = street;
+            this.city = city;
+            this.country = country;
+            this.addressType = addressType;
+        }
 
         public String getApartmentNumber() {
             return apartmentNumber;
@@ -118,11 +131,16 @@ public class UserRequestDTO implements Serializable {
         }
     }
 
-    public UserRequestDTO(String firstName, String lastName, String email, String phone) {
+    public UserRequestDTO(String firstName, String lastName, String email, String phone, Date dateOfBirth,
+            String username, String password, Set<Address> addresses) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phone = phone;
+        this.dateOfBirth = dateOfBirth;
+        this.username = username;
+        this.password = password;
+        this.addresses = addresses;
     }
 
     public void setFirstName(String firstName) {
