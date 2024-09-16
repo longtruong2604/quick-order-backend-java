@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import com.backend.backend_java.configuration.Translator;
 import com.backend.backend_java.dto.request.UserRequestDTO;
 import com.backend.backend_java.dto.request.UserRequestDTO.Address;
 import com.backend.backend_java.dto.response.ResponseData;
@@ -30,7 +31,7 @@ public class UserController {
         System.out.println("Request add user " + user.getFirstName());
         try {
             userService.addUser(user);
-            return new ResponseData<>(HttpStatus.CREATED.value(), "User added successfully");
+            return new ResponseData<>(HttpStatus.CREATED.value(), Translator.toLocale("user.add.success"));
         } catch (Exception e) {
             return new ResponseData<>(HttpStatus.BAD_REQUEST.value(), e.getMessage());
         }
