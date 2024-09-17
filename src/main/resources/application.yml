@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: quick-order-api
+  profiles:
+    active: @spring.profiles.active@

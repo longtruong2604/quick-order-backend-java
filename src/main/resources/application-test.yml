@@ -1,0 +1,12 @@
+server:
+  port: 8080
+spring:
+  config:
+    activate:
+      on-profile: test
+openapi:
+  service:
+    api-docs: api-service
+    title: Quick Order API
+    version: 1.0.0
+    server: http://localhost:{server.port}
