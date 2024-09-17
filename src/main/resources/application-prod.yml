@@ -6,7 +6,9 @@ spring:
       on-profile: prod
 openapi:
   service:
-    api-docs: api-service
+    groupName: api-service
+    description: This is a mock service for Quick Order API
     title: Quick Order API
     version: 1.0.0
-    server: http://localhost:{server.port}
+    serverUrl: http://localhost:{server.port}
+    serverName: Quick Order API
