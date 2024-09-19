@@ -5,6 +5,8 @@ import jakarta.validation.Payload;
 
 import java.lang.annotation.*;
 
+import com.backend.backend_java.dto.validator.PhoneNumberValidator;
+
 @Documented
 @Constraint(validatedBy = PhoneNumberValidator.class)
 @Target({ ElementType.METHOD, ElementType.FIELD })
