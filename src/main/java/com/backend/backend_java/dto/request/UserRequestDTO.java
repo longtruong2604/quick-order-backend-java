@@ -7,7 +7,11 @@ import java.util.Set;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.backend.backend_java.util.CustomDateDeserializer;
+import com.backend.backend_java.util.EnumPattern;
+import com.backend.backend_java.util.Gender;
 import com.backend.backend_java.util.PhoneNumber;
+import com.backend.backend_java.util.UserStatus;
+import com.backend.backend_java.util.UserType;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import jakarta.validation.constraints.Email;
@@ -35,6 +39,12 @@ public class UserRequestDTO implements Serializable {
     @JsonDeserialize(using = CustomDateDeserializer.class)
     private Date dateOfBirth;
 
+    @EnumPattern(name = "gender", regexp = "MALE|FEMALE|OTHER")
+    private Gender gender;
+
+    @EnumPattern(name = "userType", regexp = "ADMIN|USER|OWNER")
+    private UserType userType;
+
     @NotBlank(message = "username must be not null")
     private String username;
 
@@ -42,100 +52,20 @@ public class UserRequestDTO implements Serializable {
     private String password;
 
     @NotEmpty(message = "addresses can not empty")
-    private Set<Address> addresses;
+    private Set<AddressDTO> addresses;
 
-    public static class Address {
-        private String apartmentNumber;
-        private String floor;
-        private String building;
-        private String streetNumber;
-        private String street;
-        private String city;
-        private String country;
-        private Integer addressType;
-
-        public Address(String apartmentNumber, String floor, String building, String streetNumber, String street,
-                String city, String country, Integer addressType) {
-            this.apartmentNumber = apartmentNumber;
-            this.floor = floor;
-            this.building = building;
-            this.streetNumber = streetNumber;
-            this.street = street;
-            this.city = city;
-            this.country = country;
-            this.addressType = addressType;
-        }
-
-        public String getApartmentNumber() {
-            return apartmentNumber;
-        }
-
-        public void setApartmentNumber(String apartmentNumber) {
-            this.apartmentNumber = apartmentNumber;
-        }
-
-        public String getFloor() {
-            return floor;
-        }
-
-        public void setFloor(String floor) {
-            this.floor = floor;
-        }
-
-        public String getBuilding() {
-            return building;
-        }
-
-        public void setBuilding(String building) {
-            this.building = building;
-        }
-
-        public String getStreetNumber() {
-            return streetNumber;
-        }
-
-        public void setStreetNumber(String streetNumber) {
-            this.streetNumber = streetNumber;
-        }
-
-        public String getStreet() {
-            return street;
-        }
-
-        public void setStreet(String street) {
-            this.street = street;
-        }
-
-        public String getCity() {
-            return city;
-        }
-
-        public void setCity(String city) {
-            this.city = city;
-        }
-
-        public String getCountry() {
-            return country;
-        }
-
-        public void setCountry(String country) {
-            this.country = country;
-        }
-
-        public Integer getAddressType() {
-            return addressType;
-        }
-
-        public void setAddressType(Integer addressType) {
-            this.addressType = addressType;
-        }
-    }
+    @EnumPattern(name = "status", regexp = "ACTIVE|INACTIVE|NONE")
+    private UserStatus status;
 
     public UserRequestDTO(String firstName, String lastName, String email, String phone, Date dateOfBirth,
-            String username, String password, Set<Address> addresses) {
+            String username, String password, Set<AddressDTO> addresses, UserStatus status, Gender gender,
+            UserType userType) {
         this.firstName = firstName;
+        this.status = status;
+        this.userType = userType;
         this.lastName = lastName;
         this.email = email;
+        this.gender = gender;
         this.phone = phone;
         this.dateOfBirth = dateOfBirth;
         this.username = username;
@@ -173,5 +103,33 @@ public class UserRequestDTO implements Serializable {
 
     public String getPhone() {
         return phone;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public Set<AddressDTO> getAddresses() {
+        return addresses;
+    }
+
+    public UserStatus getStatus() {
+        return status;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public UserType getUserType() {
+        return userType;
     }
 }
