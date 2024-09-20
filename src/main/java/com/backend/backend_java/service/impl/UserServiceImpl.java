@@ -49,6 +49,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(long userId, UserRequestDTO request) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        if (!request.getEmail().equals(user.getEmail())) {
+            user.setEmail(request.getEmail());
+        }
+        user.setPhone(request.getPhone());
+        user.setUsername(request.getUsername());
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
+        user.setPassword(request.getPassword());
+        user.setGender(request.getGender());
+        user.setDateOfBirth(request.getDateOfBirth());
+        user.setAddresses(convertAddressToEntity(request.getAddresses()));
+        user.setStatus(request.getStatus());
+        userRepository.save(user);
+
+        log.info("User updated successfully");
     };
 
     @Override
