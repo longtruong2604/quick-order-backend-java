@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 
-public class ResponseSuccess<T> extends ResponseEntity<ResponseSuccess.Payload> {
+public class ResponseSuccess<T> extends ResponseEntity<ResponseSuccess.Payload<T>> {
 
     public ResponseSuccess(HttpStatusCode status, String message) {
         super(new Payload<T>(message, status.value()), HttpStatus.OK);
