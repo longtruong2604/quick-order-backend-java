@@ -1,6 +1,7 @@
 package com.backend.backend_java.service;
 
 import com.backend.backend_java.dto.request.UserRequestDTO;
+import com.backend.backend_java.dto.response.PageResponse;
 import com.backend.backend_java.dto.response.UserDetailResponse;
 import com.backend.backend_java.util.UserStatus;
 
@@ -18,10 +19,11 @@ public interface UserService {
 
     void deleteUser(long userId);
 
-    // UserDetailResponse getUser(long userId);
+    UserDetailResponse getUser(long userId);
 
-    // PageResponse<?> getAllUsersWithSortBy(int pageNo, int pageSize, String
-    // sortBy);
+    List<UserDetailResponse> getAllUsers(int pageNo, int pageSize);
+
+    PageResponse<?> getAllUsersWithSortBy(int pageNo, int pageSize, String sortBy);
 
     // PageResponse<?> getAllUsersWithSortByMultipleColumns(int pageNo, int
     // pageSize, String... sorts);
