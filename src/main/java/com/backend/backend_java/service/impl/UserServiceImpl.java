@@ -1,5 +1,6 @@
 package com.backend.backend_java.service.impl;
 
+import org.springframework.core.annotation.MergedAnnotations.Search;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +15,7 @@ import com.backend.backend_java.dto.response.UserDetailResponse;
 import com.backend.backend_java.exception.ResourceNotFoundException;
 import com.backend.backend_java.model.Address;
 import com.backend.backend_java.model.User;
+import com.backend.backend_java.repository.SearchRepository;
 import com.backend.backend_java.repository.UserRepository;
 import com.backend.backend_java.service.UserService;
 import com.backend.backend_java.util.UserStatus;
@@ -34,6 +36,7 @@ import java.util.ArrayList;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final SearchRepository searchRepository;
 
     @Override
     public int addUser(UserRequestDTO request) {
@@ -201,5 +204,11 @@ public class UserServiceImpl implements UserService {
                 .totalElement(users.getTotalElements())
                 .data(response)
                 .build();
+    }
+
+    @Override
+    public PageResponse<?> getAllUserWithSortByColumnAndSearch(int pageNo, int pageSize, String search, String sortBy,
+            String order) {
+        return searchRepository.searchUser(pageNo, pageSize, search, sortBy, order);
     }
 }
