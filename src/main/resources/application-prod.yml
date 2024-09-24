@@ -1,14 +1,27 @@
 server:
   port: 8082
 spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    driver-class-name: org.postgresql.Driver
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
   config:
     activate:
       on-profile: prod
+# OpenAPI configuration for your service
 openapi:
   service:
     groupName: api-service
     description: This is a mock service for Quick Order API
-    title: Quick Order API
+    title: ${API_TITLE:Quick Order API}
     version: 1.0.0
-    serverUrl: http://localhost:{server.port}
+    serverUrl: http://localhost:${server.port}
     serverName: Quick Order API

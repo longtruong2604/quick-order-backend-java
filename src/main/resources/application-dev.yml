@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://172.25.0.1:5432}/${DB_NAME:java_course}  # Fallback for local dev
+    url: jdbc:postgresql://:${DB_PORT}/${DB_NAME}
     driver-class-name: org.postgresql.Driver
     username: ${POSTGRES_USER:postgres}
     password: ${POSTGRES_PASSWORD:password}
@@ -14,7 +14,9 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
-
+  config:
+    activate:
+      on-profile: dev
 # OpenAPI configuration for your service
 openapi:
   service:
