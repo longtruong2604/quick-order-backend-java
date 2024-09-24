@@ -119,6 +119,6 @@ public class UserController {
             @RequestParam(defaultValue = "20", required = false) int pageSize) {
         log.info("Request get all of users");
         return new ResponseData<>(HttpStatus.OK.value(), "users",
-                userService.getAllUserWithSortByColumnAndSearch(pageNo, pageSize, search, sortBy, order));
+                userService.getAllUserWithSortByColumnAndSearch(pageNo, pageSize, search, sortBy));
     }
 }

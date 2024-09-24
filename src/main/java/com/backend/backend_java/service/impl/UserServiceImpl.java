@@ -1,6 +1,5 @@
 package com.backend.backend_java.service.impl;
 
-import org.springframework.core.annotation.MergedAnnotations.Search;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -175,20 +174,6 @@ public class UserServiceImpl implements UserService {
         return convertToPageResponse(users, pageable);
     }
 
-    // @Override
-    // public PageResponse<?> getAllUsersWithSortByMultipleColumns(int pageNo, int
-    // pageSize, String... sortBy) {
-    // Pageable pageable = PageRequest.of(pageNo, pageSize);
-    // Page<User> users = userRepository.findAll(pageable);
-    // return users.stream().map(user -> UserDetailResponse.builder()
-    // .email(user.getEmail())
-    // .phone(user.getPhone())
-    // .userName(user.getUsername())
-    // .firstName(user.getFirstName())
-    // .lastName(user.getLastName())
-    // .build()).toList();
-    // }
-
     private PageResponse<?> convertToPageResponse(Page<User> users, Pageable pageable) {
         List<UserDetailResponse> response = users.stream().map(user -> UserDetailResponse.builder()
                 .id(user.getId())
@@ -207,8 +192,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public PageResponse<?> getAllUserWithSortByColumnAndSearch(int pageNo, int pageSize, String search, String sortBy,
-            String order) {
-        return searchRepository.searchUser(pageNo, pageSize, search, sortBy, order);
+    public PageResponse<?> getAllUserWithSortByColumnAndSearch(int pageNo, int pageSize, String search, String sortBy) {
+        return searchRepository.searchUser(pageNo, pageSize, search, sortBy);
     }
 }
