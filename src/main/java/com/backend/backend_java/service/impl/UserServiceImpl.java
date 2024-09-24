@@ -180,6 +180,7 @@ public class UserServiceImpl implements UserService {
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())
+                .userName(user.getUsername())
                 .phone(user.getPhone())
                 .build()).toList();
         return PageResponse.builder()
@@ -194,5 +195,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public PageResponse<?> getAllUserWithSortByColumnAndSearch(int pageNo, int pageSize, String search, String sortBy) {
         return searchRepository.searchUser(pageNo, pageSize, search, sortBy);
+    }
+
+    @Override
+    public PageResponse<?> advanceSearchByCriteria(int pageNo, int pageSize, String sortBy, String address,
+            String... search) {
+        return searchRepository.advanceSearchUser(pageNo, pageSize, sortBy, address,
+                search);
     }
 }
