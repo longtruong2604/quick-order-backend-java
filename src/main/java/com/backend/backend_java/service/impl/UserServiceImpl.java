@@ -14,6 +14,7 @@ import com.backend.backend_java.dto.response.UserDetailResponse;
 import com.backend.backend_java.exception.ResourceNotFoundException;
 import com.backend.backend_java.model.Address;
 import com.backend.backend_java.model.User;
+import com.backend.backend_java.repository.SearchRepository;
 import com.backend.backend_java.repository.UserRepository;
 import com.backend.backend_java.service.UserService;
 import com.backend.backend_java.util.UserStatus;
@@ -34,6 +35,7 @@ import java.util.ArrayList;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final SearchRepository searchRepository;
 
     @Override
     public int addUser(UserRequestDTO request) {
@@ -172,26 +174,13 @@ public class UserServiceImpl implements UserService {
         return convertToPageResponse(users, pageable);
     }
 
-    // @Override
-    // public PageResponse<?> getAllUsersWithSortByMultipleColumns(int pageNo, int
-    // pageSize, String... sortBy) {
-    // Pageable pageable = PageRequest.of(pageNo, pageSize);
-    // Page<User> users = userRepository.findAll(pageable);
-    // return users.stream().map(user -> UserDetailResponse.builder()
-    // .email(user.getEmail())
-    // .phone(user.getPhone())
-    // .userName(user.getUsername())
-    // .firstName(user.getFirstName())
-    // .lastName(user.getLastName())
-    // .build()).toList();
-    // }
-
     private PageResponse<?> convertToPageResponse(Page<User> users, Pageable pageable) {
         List<UserDetailResponse> response = users.stream().map(user -> UserDetailResponse.builder()
                 .id(user.getId())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())
+                .userName(user.getUsername())
                 .phone(user.getPhone())
                 .build()).toList();
         return PageResponse.builder()
@@ -201,5 +190,17 @@ public class UserServiceImpl implements UserService {
                 .totalElement(users.getTotalElements())
                 .data(response)
                 .build();
+    }
+
+    @Override
+    public PageResponse<?> getAllUserWithSortByColumnAndSearch(int pageNo, int pageSize, String search, String sortBy) {
+        return searchRepository.searchUser(pageNo, pageSize, search, sortBy);
+    }
+
+    @Override
+    public PageResponse<?> advanceSearchByCriteria(int pageNo, int pageSize, String sortBy, String address,
+            String... search) {
+        return searchRepository.advanceSearchUser(pageNo, pageSize, sortBy, address,
+                search);
     }
 }

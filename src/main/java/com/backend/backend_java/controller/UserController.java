@@ -108,4 +108,29 @@ public class UserController {
         return new ResponseData<>(HttpStatus.OK.value(), "users",
                 userService.getAllUsersWithSortBy(pageNo, pageSize, sortBy));
     }
+
+    @Operation(summary = "Search for user", description = "Send a request via this API to get user list by search string")
+    @GetMapping("/search")
+    public ResponseData<?> getAllUsersWithSortByColumnAndSearch(
+            @RequestParam(defaultValue = "", required = false) String search,
+            @RequestParam(defaultValue = "id", required = false) String sortBy,
+            @RequestParam(defaultValue = "0", required = false) int pageNo,
+            @RequestParam(defaultValue = "20", required = false) int pageSize) {
+        log.info("Request get all of users");
+        return new ResponseData<>(HttpStatus.OK.value(), "users",
+                userService.getAllUserWithSortByColumnAndSearch(pageNo, pageSize, search, sortBy));
+    }
+
+    @Operation(summary = "Search for user", description = "Send a request via this API to get user list by search string")
+    @GetMapping("/search-criteria")
+    public ResponseData<?> advanceSearchByCriteria(
+            @RequestParam(defaultValue = "id", required = false) String sortBy,
+            @RequestParam(defaultValue = "0", required = false) int pageNo,
+            @RequestParam(defaultValue = "20", required = false) int pageSize,
+            @RequestParam(defaultValue = "20", required = false) String address,
+            @RequestParam(defaultValue = "", required = false) String... search) {
+        log.info("Request get all of users");
+        return new ResponseData<>(HttpStatus.OK.value(), "users",
+                userService.advanceSearchByCriteria(pageNo, pageSize, sortBy, address, search));
+    }
 }

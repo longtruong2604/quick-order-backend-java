@@ -31,8 +31,9 @@ public interface UserService {
     // PageResponse<?> getAllUsersAndSearchWithPagingAndSorting(int pageNo, int
     // pageSize, String search, String sortBy);
 
-    // PageResponse<?> advanceSearchWithCriteria(int pageNo, int pageSize, String
-    // sortBy, String address, String... search);
+    PageResponse<?> getAllUserWithSortByColumnAndSearch(int pageNo, int pageSize, String search, String sortBy);
+
+    PageResponse<?> advanceSearchByCriteria(int pageNo, int pageSize, String sortBy, String address, String... search);
 
     // PageResponse<?> advanceSearchWithSpecifications(Pageable pageable, String[]
     // user, String[] address);

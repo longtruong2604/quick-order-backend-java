@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,7 +17,8 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "tbl_address")
+@Entity(name = "Address")
+@Table(name = "tbl_address")
 public class Address extends AbstractEntity {
     @Column(name = "apartment_number")
     private String apartmentNumber;
