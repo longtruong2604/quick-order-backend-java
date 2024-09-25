@@ -23,5 +23,5 @@ openapi:
     description: This is a mock service for Quick Order API
     title: ${API_TITLE:Quick Order API}
     version: 1.0.0
-    serverUrl: https://${ENDPOINT_HOST}:${server.port}
+    serverUrl: https://${ENDPOINT_HOST}
     serverName: Quick Order API
