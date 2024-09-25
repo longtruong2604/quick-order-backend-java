@@ -2,7 +2,7 @@ spring:
   application:
     name: quick-order-api
   profiles: 
-    active: @spring.profiles.active@
+    active: ${SPRING_PROFILES_ACTIVE:dev}
   sql:
     init:
       mode: always
