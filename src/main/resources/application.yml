@@ -2,4 +2,7 @@ spring:
   application:
     name: quick-order-api
   profiles: 
-    active: prod
+    active: @spring.profiles.active@
+  sql:
+    init:
+      mode: always

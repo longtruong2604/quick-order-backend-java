@@ -3,10 +3,10 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://:${DB_PORT}/${DB_NAME}
+    url: jdbc:postgresql://172.25.0.1:5432/java_course
     driver-class-name: org.postgresql.Driver
-    username: ${POSTGRES_USER:postgres}
-    password: ${POSTGRES_PASSWORD:password}
+    username: postgres
+    password: password
   jpa:
     properties:
       hibernate:
@@ -26,3 +26,4 @@ openapi:
     version: 1.0.0
     serverUrl: http://localhost:${server.port}
     serverName: Quick Order API
+
